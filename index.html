@@ -293,46 +293,6 @@
             margin-top: 0.3rem;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: scrollBounce 2s ease-in-out infinite;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            width: 30px;
-            height: 50px;
-            border: 2px solid var(--accent-purple);
-            border-radius: 25px;
-            position: relative;
-        }
-
-        .scroll-indicator span::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            background: var(--accent-purple);
-            border-radius: 50%;
-            animation: scrollDot 2s ease-in-out infinite;
-        }
-
-        @keyframes scrollBounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        @keyframes scrollDot {
-            0%, 100% { top: 8px; opacity: 1; }
-            50% { top: 25px; opacity: 0.5; }
-        }
-
         /* Glass Cards */
         .glass-card {
             background: var(--glass);
@@ -1000,10 +960,6 @@
                     <div class="date">Samedi 27 Juin 2026</div>
                     <div class="time">Une journée inoubliable t'attend !</div>
                 </div>
-            </div>
-
-            <div class="scroll-indicator">
-                <span></span>
             </div>
         </section>
 
