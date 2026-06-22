@@ -31,6 +31,7 @@
 | Enzo | En attente | - | - |
 | Axel | En attente | - | - |
 | Nil | En attente | - | - |
+| Paul Hermann | En attente | - | - |
 
 ## Idées cadeaux
 
