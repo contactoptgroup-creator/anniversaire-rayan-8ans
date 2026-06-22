@@ -22,15 +22,15 @@
 
 | Prénom | Statut | Parent | Contact |
 |--------|--------|--------|---------|
+| Adam | En attente | - | - |
+| Axel | En attente | - | - |
+| Enzo | En attente | - | - |
+| Farah | En attente | - | - |
+| Izhaq | En attente | - | - |
 | Joshua | En attente | - | - |
 | Kayden | En attente | - | - |
-| Adam | En attente | - | - |
-| Paul | Confirmé | Cynthia | - |
-| Izhaq | En attente | - | - |
-| Farah | En attente | - | - |
-| Enzo | En attente | - | - |
-| Axel | En attente | - | - |
 | Nil | En attente | - | - |
+| Paul | Confirmé | Cynthia | - |
 | Paul Hermann | En attente | - | - |
 
 ## Idées cadeaux
