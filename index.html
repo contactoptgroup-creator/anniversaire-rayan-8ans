@@ -1182,7 +1182,7 @@
     </div>
 
     <script>
-        // Guest data - easy to update
+        // Guest data - easy to update (sorted alphabetically)
         const guests = [
             { id: 1, name: "Adam", initial: "A", status: "pending" },
             { id: 2, name: "Axel", initial: "A", status: "pending" },
@@ -1194,7 +1194,7 @@
             { id: 8, name: "Nil", initial: "N", status: "pending" },
             { id: 9, name: "Paul", initial: "P", status: "confirmed" },
             { id: 10, name: "Paul Hermann", initial: "P", status: "pending" }
-        ];
+        ].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
         // Storage key
         const STORAGE_KEY = 'rayan_birthday_rsvp';
