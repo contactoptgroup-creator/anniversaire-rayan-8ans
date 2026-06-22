@@ -16,7 +16,7 @@
 | 11h00 - 13h00 | Animation (2H) | La Tête dans les Nuages |
 | 13h30 | Récupération | 5 rue de l'Arc de Triomphe, Paris 17ème |
 
-**Note :** Prévoir un ticket de métro aller-retour pour chaque enfant
+**Note :** Prévoir un pass Navigo pour chaque enfant
 
 ## Liste des invités
 
