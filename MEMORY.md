@@ -13,9 +13,8 @@
 | Heure | Activité | Lieu |
 |-------|----------|------|
 | 10h45 | Accueil des enfants | Devant La Tête dans les Nuages |
-| 11h00 - 12h30 | Animation (1H30) | La Tête dans les Nuages |
-| 12h30 - 13h30 | Déjeuner + gâteau | Five Guys |
-| 13h30 | Récupération | Devant Five Guys |
+| 11h00 - 13h00 | Animation (2H) | La Tête dans les Nuages |
+| 13h00 | Récupération | Devant La Tête dans les Nuages |
 
 ## Liste des invités
 
