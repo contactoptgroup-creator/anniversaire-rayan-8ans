@@ -26,6 +26,11 @@
 | Kayden | En attente | - | - |
 | Adam | En attente | - | - |
 | Paul | Confirmé | Cynthia | - |
+| Izhaq | En attente | - | - |
+| Farah | En attente | - | - |
+| Enzo | En attente | - | - |
+| Axel | En attente | - | - |
+| Nil | En attente | - | - |
 
 ## Idées cadeaux
 
