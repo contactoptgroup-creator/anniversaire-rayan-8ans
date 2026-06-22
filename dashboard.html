@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Anniversaire Rayan 8 ans</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0015;
+            --bg-secondary: #150a25;
+            --bg-card: rgba(30, 15, 50, 0.7);
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-yellow: #fbbf24;
+            --accent-green: #10b981;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+            --text-primary: #ffffff;
+            --text-secondary: #d8b4fe;
+            --text-muted: #a78bfa;
+            --border-glow: rgba(168, 85, 247, 0.5);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Gradient Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #fff, var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.2);
+        }
+
+        .stat-card.confirmed {
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .stat-card.pending {
+            border-color: var(--accent-yellow);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .stat-card.declined {
+            border-color: var(--accent-red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card.confirmed .stat-number { color: var(--accent-green); }
+        .stat-card.pending .stat-number { color: var(--accent-yellow); }
+        .stat-card.declined .stat-number { color: var(--accent-red); }
+        .stat-card.total .stat-number {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Guest List Table */
+        .guests-table {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 1rem 1.5rem;
+            background: rgba(168, 85, 247, 0.1);
+            border-bottom: 1px solid var(--glass-border);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .guest-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .guest-row:last-child {
+            border-bottom: none;
+        }
+
+        .guest-row:hover {
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .guest-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .guest-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .guest-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-badge.confirmed {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+
+        .status-badge.pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--accent-yellow);
+        }
+
+        .status-badge.declined {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .response-time {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Event Info */
+        .event-info {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .event-item-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .event-item h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .event-item p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        /* Refresh Notice */
+        .refresh-notice {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Notes Section */
+        .notes-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .notes-list {
+            list-style: none;
+        }
+
+        .notes-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .notes-list li:last-child {
+            border-bottom: none;
+        }
+
+        .notes-list li span:first-child {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .table-header {
+                display: none;
+            }
+
+            .guest-row {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                padding: 1.25rem;
+            }
+
+            .guest-info {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1>📊 Dashboard Anniversaire</h1>
+            </div>
+            <a href="index.html" class="back-link">
+                <span>←</span>
+                <span>Retour à l'invitation</span>
+            </a>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="total-count">0</div>
+                <div class="stat-label">Invités</div>
+            </div>
+            <div class="stat-card confirmed">
+                <div class="stat-icon">✅</div>
+                <div class="stat-number" id="confirmed-count">0</div>
+                <div class="stat-label">Confirmés</div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-number" id="pending-count">0</div>
+                <div class="stat-label">En attente</div>
+            </div>
+            <div class="stat-card declined">
+                <div class="stat-icon">❌</div>
+                <div class="stat-number" id="declined-count">0</div>
+                <div class="stat-label">Absents</div>
+            </div>
+        </div>
+
+        <!-- Guest List -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">👨‍👩‍👧‍👦</div>
+                <h2>Liste des invités</h2>
+            </div>
+
+            <div class="guests-table">
+                <div class="table-header">
+                    <div>Invité</div>
+                    <div>Statut</div>
+                    <div>Parent</div>
+                    <div>Actions</div>
+                </div>
+                <div id="guests-list">
+                    <!-- Guest rows will be inserted here -->
+                </div>
+            </div>
+
+            <div class="refresh-notice">
+                <p>🔄 Les données sont synchronisées avec l'invitation en temps réel</p>
+            </div>
+        </section>
+
+        <!-- Event Info -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📅</div>
+                <h2>Infos de l'événement</h2>
+            </div>
+
+            <div class="event-info">
+                <div class="event-grid">
+                    <div class="event-item">
+                        <div class="event-item-icon">📅</div>
+                        <div>
+                            <h4>Date</h4>
+                            <p>Samedi 27 juin 2026</p>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-item-icon">⏰</div>
+                        <div>
+                            <h4>Horaires</h4>
+                            <p>10h45 - 13h30</p>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-item-icon">📍</div>
+                        <div>
+                            <h4>Lieu</h4>
+                            <p>La Tête dans les Nuages, Les 4 Temps</p>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-item-icon">🍔</div>
+                        <div>
+                            <h4>Déjeuner</h4>
+                            <p>Five Guys + Gâteau</p>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-item-icon">⏳</div>
+                        <div>
+                            <h4>Date limite RSVP</h4>
+                            <p>26 juin 2026</p>
+                        </div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-item-icon">🚗</div>
+                        <div>
+                            <h4>Transport</h4>
+                            <p>Tesla Model X (6 places)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📝</div>
+                <h2>Notes & Rappels</h2>
+            </div>
+
+            <div class="notes-card">
+                <ul class="notes-list">
+                    <li>
+                        <span>🚗</span>
+                        <span>Si plus de 6 enfants confirmés, prévoir covoiturage ou 2 trajets</span>
+                    </li>
+                    <li>
+                        <span>🍔</span>
+                        <span>Réserver une table au Five Guys ou arriver tôt (12h30)</span>
+                    </li>
+                    <li>
+                        <span>🎂</span>
+                        <span>Commander le gâteau d'anniversaire à l'avance</span>
+                    </li>
+                    <li>
+                        <span>🎁</span>
+                        <span>Prévoir des sachets de bonbons pour les invités</span>
+                    </li>
+                    <li>
+                        <span>📸</span>
+                        <span>Préparer l'appareil photo / téléphone chargé</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Actions -->
+        <section class="section">
+            <div class="actions">
+                <button class="btn btn-primary" onclick="copyInvitationLink()">
+                    <span>🔗</span>
+                    <span>Copier le lien d'invitation</span>
+                </button>
+                <button class="btn btn-secondary" onclick="refreshData()">
+                    <span>🔄</span>
+                    <span>Actualiser</span>
+                </button>
+                <a href="https://formspree.io/forms/xpwzgvvw/submissions" target="_blank" class="btn btn-secondary">
+                    <span>📬</span>
+                    <span>Voir les réponses Formspree</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" style="
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: var(--bg-card);
+        border: 1px solid var(--accent-green);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        z-index: 1001;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(20px);
+    ">
+        <span>✅</span>
+        <span id="toast-message">Lien copié !</span>
+    </div>
+
+    <script>
+        // Guest data - same as invitation
+        const guests = [
+            { id: 1, name: "Joshua", initial: "J", status: "pending", parent: "-" },
+            { id: 2, name: "Kayden", initial: "K", status: "pending", parent: "-" },
+            { id: 3, name: "Adam", initial: "A", status: "pending", parent: "-" },
+            { id: 4, name: "Paul", initial: "P", status: "confirmed", parent: "Cynthia" }
+        ];
+
+        // Storage key - same as invitation
+        const STORAGE_KEY = 'rayan_birthday_rsvp';
+
+        // Load saved responses
+        function loadResponses() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const responses = JSON.parse(saved);
+                guests.forEach(guest => {
+                    if (responses[guest.id]) {
+                        guest.status = responses[guest.id];
+                    }
+                });
+            }
+        }
+
+        // Update stats
+        function updateStats() {
+            const total = guests.length;
+            const confirmed = guests.filter(g => g.status === 'confirmed').length;
+            const pending = guests.filter(g => g.status === 'pending').length;
+            const declined = guests.filter(g => g.status === 'declined').length;
+
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('confirmed-count').textContent = confirmed;
+            document.getElementById('pending-count').textContent = pending;
+            document.getElementById('declined-count').textContent = declined;
+        }
+
+        // Render guest list
+        function renderGuestList() {
+            const container = document.getElementById('guests-list');
+            container.innerHTML = guests.map(guest => `
+                <div class="guest-row">
+                    <div class="guest-info">
+                        <div class="guest-avatar">${guest.initial}</div>
+                        <span class="guest-name">${guest.name}</span>
+                    </div>
+                    <div>
+                        <span class="status-badge ${guest.status}">
+                            ${guest.status === 'confirmed' ? '✅ Confirmé' :
+                              guest.status === 'declined' ? '❌ Absent' :
+                              '⏳ En attente'}
+                        </span>
+                    </div>
+                    <div class="response-time">${guest.parent}</div>
+                    <div>
+                        <button class="btn btn-secondary" onclick="toggleStatus(${guest.id})" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
+                            Modifier
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle status
+        function toggleStatus(id) {
+            const guest = guests.find(g => g.id === id);
+            if (guest) {
+                const statuses = ['pending', 'confirmed', 'declined'];
+                const currentIndex = statuses.indexOf(guest.status);
+                guest.status = statuses[(currentIndex + 1) % statuses.length];
+
+                // Save to localStorage
+                const saved = localStorage.getItem(STORAGE_KEY);
+                const responses = saved ? JSON.parse(saved) : {};
+                responses[id] = guest.status;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(responses));
+
+                renderGuestList();
+                updateStats();
+            }
+        }
+
+        // Copy invitation link
+        function copyInvitationLink() {
+            const link = 'https://anniversaire-rayan.vercel.app';
+            navigator.clipboard.writeText(link).then(() => {
+                showToast('Lien copié dans le presse-papier !');
+            });
+        }
+
+        // Refresh data
+        function refreshData() {
+            loadResponses();
+            renderGuestList();
+            updateStats();
+            showToast('Données actualisées !');
+        }
+
+        // Show toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            toast.style.opacity = '1';
+
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(100px)';
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadResponses();
+            renderGuestList();
+            updateStats();
+        });
+    </script>
+</body>
+</html>
